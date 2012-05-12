@@ -1,7 +1,25 @@
-@(message: String)
+@(searchForm: Form[String])
 
-@main("Welcome to Play 2.0") {
+@import helper._
+
+@main(title = "Statistics") {
+
+	<section>
+    <h1>Get Statistics for an Item you want!</h1>
+
+    @form(action = routes.Application.searchItem, args = 'id -> "searchform") {
+
+        @inputText(
+            field = searchForm("item"),
+            args = '_label -> "Search your item", 'placeholder -> "ipad"
+        )
+
+        <p class="buttons">
+            <input type="submit" id="submit">
+        <p>
+
+    }
     
-    @play20.welcome(message)
-    
+    </section>
+
 }
