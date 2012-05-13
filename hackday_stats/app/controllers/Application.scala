@@ -30,7 +30,7 @@ object Application extends Controller {
             val query = "q=" + q
             val parser = new JSONParser(searchToMELI(query))
             val filters = processResult(parser.getFilters())
-            Ok(views.html.result(parser.getFilters(), query))
+            Ok(views.html.result(parser.getFilters(), parser.getItems(), query))
         })
   }
 
@@ -39,7 +39,7 @@ object Application extends Controller {
       val query = buildQuery(request.queryString)
       val parser = new JSONParser(searchToMELI(query))
       val filters = processResult(parser.getFilters())
-      Ok(views.html.result(parser.getFilters(), query))
+      Ok(views.html.result(parser.getFilters(), parser.getItems(), query))
   }
 
   def processResult(filters: List[Filters]): List[Filters] = {

@@ -1,4 +1,4 @@
-@(result: List[Filters], currentUrl: String)
+@(filters: List[Filters], items: List[Item], currentUrl: String)
 
 @import helper._
 
@@ -9,9 +9,23 @@
     
     @currentUrl<br />
 
-	<h1>@result.size Results found</h1>
+	<h1>@items.size Results found</h1>
 	
-    @result.toString()
+    @filters.toString()
+    
+    <ul>
+	<!--  Item(id: String, title: String, price: Double, sold_quantity: Int, permalink: String, thumbnail: String) -->
+	@items.map { i => 
+		<li> @i.id
+		@i.title
+		@i.price
+		@i.sold_quantity
+		<a href = @i.permalink>Link</a>
+		<img src = @i.thumbnail />
+		</li> 
+		
+		}
+	</ul>
     
     </section>
     <a href="/process?@currentUrl.toString()&category=MLA1714"\"">filtro</a>
