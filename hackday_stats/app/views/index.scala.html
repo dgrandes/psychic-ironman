@@ -4,29 +4,26 @@
 
 @main(title = "Statistics") {
 
-	<div class="container-fluid">
-	<div class="row-fluid">
-	<!-- <h1>Hello, world!</h1>
-    <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-    <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p> -->
+<div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>Get Statistics for an Item you want!</h1>
+        
+        <div class="hero-unit-stuff" style="text-align: center">
+	        @form(action = routes.Application.search, args = 'id -> "searchform") {
 	
-    <h1>Get Statistics for an Item you want!</h1>
+	        @inputText(
+	            field = searchForm("q"),
+	            args = '_label -> "Search your item", 'placeholder -> "ipad"
+	        )
+			
+	        <p class="buttons">
+	            <input class="btn btn-primary btn-large" type="submit" id="submit">
+	        <p>
+	
+	    	}
+    	</div>
 
-    @form(action = routes.Application.search, args = 'id -> "searchform") {
-
-        @inputText(
-            field = searchForm("q"),
-            args = '_label -> "Search your item", 'placeholder -> "ipad"
-        )
-		
-        <p class="buttons">
-            <input class="btn btn-primary btn-large" type="submit" id="submit">
-        <p>
-        
-        
-
-    }
     </div>
-    </div>
-
 }
