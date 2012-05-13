@@ -52,51 +52,46 @@
         </div><!--/span-->
         <div class="span9">
           <div class="hero-unit">
-          	
-          	    <h1>Get Statistics for an Item you want!</h1>
-    			@currentUrl<br />
-
-				<h1>@items.size Results found</h1>	
+        
+				<h2>@items.size Results found</h2>	
 				
 			    @if(averagePrice > 0){
-				    <ul>
-					<!--  Item(id: String, title: String, price: Double, sold_quantity: Int, permalink: String, thumbnail: String) -->
-					<h1>GOOD PRICES</h1>
+			    	<div class="alert-info"><h2>Average Price: $@averagePrice</h2></div>
+			    	<p>
+					<div class="alert-success"><h2>Good Prices :)!</h2></div>
+					<ul class="thumbnails">
 					@items.filter(i => i.price < averagePrice ).sortBy(_.price).map { i => 
-						<li> @i.id
-						@i.title
-						@i.price
-						@i.sold_quantity
-						<a href = @i.permalink>Link</a>
-						<img src = @i.thumbnail />
-						</li> 
 						
+						<li class="span3">
+					    <div class="thumbnail">
+					      <img src="@i.thumbnail" alt="">
+					      <h5><a href = @i.permalink>@i.title</a></h5>
+					      <p>@i.price</p>
+    					</div>
+						</li>
 						}
 					</ul>
-					<h1><div id="average">Average Price: @averagePrice</div></h1>
-					<ul>
-					<!--  Item(id: String, title: String, price: Double, sold_quantity: Int, permalink: String, thumbnail: String) -->
-					<h1>BAD PRICES</h1>
+
+					
+
+
+					<div class="alert-error"><h2>Bad Prices :(!</h2></div>
+					<ul class="thumbnails">
 					@items.filter(i => i.price > averagePrice ).sortBy(_.price).map { i => 
-						<li> @i.id
-						@i.title
-						@i.price
-						@i.sold_quantity
-						<a href = @i.permalink>Link</a>
-						<img src = @i.thumbnail />
-						</li> 
-						
+						<li class="span3">
+					    <div class="thumbnail">
+					      <img src="@i.thumbnail" alt="">
+					      <h5><a href = @i.permalink>@i.title</a></h5>
+					      <p>@i.price</p>
+    					</div>
+						</li>
 						}
 					</ul>
 				}else{
-					<h1>Must Refine your Search!</h1>
+					<h2>Results are too broad, please refine your search with the filters at your left!</h2>
 				}
 				
-				<a href="/process?@currentUrl.toString()&category=MLA1714"\"">filtro</a>
           	
-            <!-- <h1>Hello, world!</h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-            <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p> -->
           </div>
           <div class="row-fluid">
 
