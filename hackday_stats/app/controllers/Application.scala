@@ -29,13 +29,16 @@ object Application extends Controller {
           case (item) => 
             val parser = new JSONParser(search(item))
             val categories_list = processResult(parser.getFilters())
-            Ok(views.html.result(categories_list))
+            Ok(views.html.result(categories_list, "aaaaaaa"))
           })
   }
 
-  def processResult(categories: List[Filters]): List[java.lang.String] = {
+  def processResult(categories: List[Filters]): List[Item] = {
    // categories.flatMap(_._2.values.map(k =>))
-    List("asdf","asdfa")
+    //Item(id: String, title: String, price: Double, sold_quantity: Int, permalink: String, thumbnail: String)
+    List(Item("MLAItem1", "Titulo1", 12.01, 10, "http://disney.com", "http://www.bdigital.unal.edu.co/style/images/fileicons/text_html.png"),
+        Item("MLAItem2", "Titulo2", 13.01, 11, "http://disney.com", "http://www.bdigital.unal.edu.co/style/images/fileicons/text_html.png"),
+        Item("MLAItem3", "Titulo3", 14.01, 12, "http://disney.com", "http://www.bdigital.unal.edu.co/style/images/fileicons/text_html.png"))
   }
 
   def search(item: String): String = {

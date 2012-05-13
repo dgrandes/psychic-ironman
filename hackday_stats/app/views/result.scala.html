@@ -1,4 +1,5 @@
-@(result: List[String])
+@(result: List[Item], query: String)
+
 
 @import helper._
 
@@ -7,7 +8,24 @@
 	<section>
     <h1>Get Statistics for an Item you want!</h1>
 
+	<h1>@result.size Results found</h1>
+
+	<ul>
+	<!--  Item(id: String, title: String, price: Double, sold_quantity: Int, permalink: String, thumbnail: String) -->
+	@result.map { i => 
+		<li> @i.id
+		@i.title
+		@i.price
+		@i.sold_quantity
+		<a href = @i.permalink>Link</a>
+		<img src = @i.thumbnail />
+		</li> 
+		
+		}
+	</ul>
+	
     @result.toString()
+    @query
     
     </section>
 
