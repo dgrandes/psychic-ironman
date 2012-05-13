@@ -49,7 +49,8 @@ object Application extends Controller {
     if(filters.exists(_.id == "category")){ 
     	-1
     }else{
-    	items.foldLeft(0.0)((a,b) => a+b.price)/items.length
+    	val v = items.foldLeft(0.0)((a,b) => a+b.price)/items.length
+    	("%.2f").format(v).toDouble
     }
     
   }
