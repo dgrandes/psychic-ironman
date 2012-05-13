@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.BasicResponseHandler
 import org.apache.http.impl.client.DefaultHttpClient
 import views._
+import scala.collection.immutable.Page
 
 object Application extends Controller {
   val searchForm = Form(
@@ -55,6 +56,7 @@ object Application extends Controller {
 
   def buildQuery(queryMap: Map[String, Seq[String]]): String = {
     queryMap.keys.toList.sortWith(_.length < _.length).map(f => f + "=" + queryMap(f)(0) + "&").foldLeft("")((a, b) => a + b).dropRight(1)
+       
   }
 
   def searchToMELI(query: String): String = {
