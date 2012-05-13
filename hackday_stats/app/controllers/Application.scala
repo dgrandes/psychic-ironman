@@ -29,8 +29,8 @@ object Application extends Controller {
           case (q) =>
             val query = "q=" + q
             val parser = new JSONParser(searchToMELI(query))
-            val filters = processResult(parser.getFilters())
-            Ok(views.html.result(parser.getFilters(), parser.getItems(), query))
+            val filters = parser.getFilters()
+            Ok(views.html.result(parser.getFilters(), parser.getItems(), query, -1.0))
         })
   }
 
@@ -38,17 +38,19 @@ object Application extends Controller {
     implicit request =>
       val query = buildQuery(request.queryString)
       val parser = new JSONParser(searchToMELI(query))
-      val filters = processResult(parser.getFilters())
-      Ok(views.html.result(parser.getFilters(), parser.getItems(), query))
+      val filters = parser.getFilters()
+      val items = parser.getItems()
+      val average = processResult(filters,items)
+      Ok(views.html.result(parser.getFilters(), items, query, average))
   }
 
-  def processResult(filters: List[Filters]): List[Filters] = {
-     // categories.flatMap(_._2.values.map(k =>))
-    //Item(id: String, title: String, price: Double, sold_quantity: Int, permalink: String, thumbnail: String)
-    //List(Item("MLAItem1", "Titulo1", 12.01, 10, "http://disney.com", "http://www.bdigital.unal.edu.co/style/images/fileicons/text_html.png"),
-    //Item("MLAItem2", "Titulo2", 13.01, 11, "http://disney.com", "http://www.bdigital.unal.edu.co/style/images/fileicons/text_html.png"),
-    //Item("MLAItem3", "Titulo3", 14.01, 12, "http://disney.com", "http://www.bdigital.unal.edu.co/style/images/fileicons/text_html.png"))
-    filters
+  def processResult(filters: List[Filters],items: List[Item]): Double = {
+    if(filters.exists(_.id == "category")){ 
+    	-1
+    }else{
+    	items.foldLeft(0.0)((a,b) => a+b.price)/items.length
+    }
+    
   }
 
   def buildQuery(queryMap: Map[String, Seq[String]]): String = {

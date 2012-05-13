@@ -1,4 +1,4 @@
-@(filters: List[Filters], items: List[Item], currentUrl: String)
+@(filters: List[Filters], items: List[Item], currentUrl: String, averagePrice: Double)
 
 @import helper._
 
@@ -12,20 +12,39 @@
 	<h1>@items.size Results found</h1>
 	
     @filters.toString()
-    
-    <ul>
-	<!--  Item(id: String, title: String, price: Double, sold_quantity: Int, permalink: String, thumbnail: String) -->
-	@items.map { i => 
-		<li> @i.id
-		@i.title
-		@i.price
-		@i.sold_quantity
-		<a href = @i.permalink>Link</a>
-		<img src = @i.thumbnail />
-		</li> 
-		
-		}
-	</ul>
+    @if(averagePrice > 0){
+	    <ul>
+		<!--  Item(id: String, title: String, price: Double, sold_quantity: Int, permalink: String, thumbnail: String) -->
+		<h1>GOOD PRICES</h1>
+		@items.filter(i => i.price < averagePrice ).sortBy(_.price).map { i => 
+			<li> @i.id
+			@i.title
+			@i.price
+			@i.sold_quantity
+			<a href = @i.permalink>Link</a>
+			<img src = @i.thumbnail />
+			</li> 
+			
+			}
+		</ul>
+		<h1><div id="average">Average Price: @averagePrice</div></h1>
+		<ul>
+		<!--  Item(id: String, title: String, price: Double, sold_quantity: Int, permalink: String, thumbnail: String) -->
+		<h1>BAD PRICES</h1>
+		@items.filter(i => i.price > averagePrice ).sortBy(_.price).map { i => 
+			<li> @i.id
+			@i.title
+			@i.price
+			@i.sold_quantity
+			<a href = @i.permalink>Link</a>
+			<img src = @i.thumbnail />
+			</li> 
+			
+			}
+		</ul>
+	}else{
+		<h1>Must Refine your Search!</h1>
+	}
     
     </section>
     <a href="/process?@currentUrl.toString()&category=MLA1714"\"">filtro</a>
