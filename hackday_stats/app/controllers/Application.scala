@@ -28,12 +28,12 @@ object Application extends Controller {
           
           case (item) => 
             val parser = new JSONParser(search(item))
-            val categories_list = processResult(parser.getFilterCategories())
+            val categories_list = processResult(parser.getFilters())
             Ok(views.html.result(categories_list))
           })
   }
 
-  def processResult(categories: Map[String, CategoryFilters]): List[java.lang.String] = {
+  def processResult(categories: List[Filters]): List[java.lang.String] = {
    // categories.flatMap(_._2.values.map(k =>))
     List("asdf","asdfa")
   }
